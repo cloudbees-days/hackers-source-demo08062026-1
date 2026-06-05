@@ -2,9 +2,13 @@ name: test-and-build-image2
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     env:
       VUE_APP_ROLLOUT_KEY: ${{ secrets.VUE_APP_ROLLOUT_KEY }}
     steps:
@@ -14,15 +18,6 @@ jobs:
           node-version: "20.x"
       - run: npm ci
       - run: npm run test:unit
-
-    #  - name: Record test results to Launchable workspace
-    #    uses: launchableinc/record-build-and-test-results-action@v1.0.0
-    #    with:
-    #      report_path: junit.xml
-    #      test_runner: jest
-    #    if: always()
-    #    env:
-    #      LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN }}
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
