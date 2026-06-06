@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
       - run: npm run test:unit
 
       - name: Upload test results
