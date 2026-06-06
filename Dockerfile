@@ -2,7 +2,7 @@ FROM node:lts AS builder
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends jq && rm -rf /var/lib/apt/lists/*
 COPY package*.json ./
-RUN npm ci
+RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 RUN ./vulnerable-packages.sh
