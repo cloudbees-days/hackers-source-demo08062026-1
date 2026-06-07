@@ -8,6 +8,7 @@ RUN npm run build
 RUN ./vulnerable-packages.sh
 
 FROM nginx:stable-alpine
+RUN apk add --no-cache --upgrade libxml2
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY --from=builder /app/vulnerable_modules /app/node_modules
